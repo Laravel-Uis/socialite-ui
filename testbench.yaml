@@ -1,0 +1,17 @@
+providers:
+  - Laravel\Socialite\SocialiteServiceProvider
+  - SocialiteUi\SocialiteUiServiceProvider
+
+migrations:
+  - database/migrations
+
+workbench:
+  start: '/'
+  install: true
+  discovers:
+    config: true
+    web: true
+  build:
+    - create-sqlite-db
+    - db:wipe
+    - migrate:refresh

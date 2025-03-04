@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         backupGlobals="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false">
+    <testsuites>
+        <testsuite name="Socialite Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <coverage/>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">src/Contracts</directory>
+            <directory suffix=".php">src/Enums</directory>
+            <directory suffix=".php">src/Events</directory>
+            <directory suffix=".php">src/Http</directory>
+            <file>src/Concerns/HasSocialAccounts.php</file>
+            <file>src/Console/InstallCommand.php</file>
+            <file>src/Policies/SocialAccountPolicy.php</file>
+            <file>src/Repositories/SocialAccount/SocialAccountRepository.php</file>
+            <file>src/Repositories/User/UserRepository.php</file>
+            <file>src/Providers.php</file>
+            <file>src/Features.php</file>
+            <file>src/SocialAccount.php</file>
+            <file>src/SocialiteUi.php</file>
+            <file>src/SocialiteUiServiceProvider.php</file>
+        </exclude>
+    </source>
+    <php>
+        <server name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <server name="SESSION_DRIVER" value="array"/>
+    </php>
+</phpunit>

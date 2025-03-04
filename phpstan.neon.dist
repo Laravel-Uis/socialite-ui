@@ -1,0 +1,12 @@
+parameters:
+    level: 7
+
+    paths:
+        - src
+
+    databaseMigrationsPath:
+        - /database/migrations
+
+    ignoreErrors:
+        -
+            identifier: trait.unused

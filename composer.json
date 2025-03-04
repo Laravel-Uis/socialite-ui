@@ -1,0 +1,90 @@
+{
+    "name": "laravel-uis/socialite-ui",
+    "version": "1.0.0",
+    "description": "A Laravel Socialite UI for the new Laravel Starter Kits",
+    "keywords": [
+        "socialite",
+        "laravel",
+        "laravel socialite",
+        "oauth",
+        "oauth2",
+        "starter kit"
+    ],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/Laravel-Uis/socialite-ui/issues",
+        "source": "https://github.com/Laravel-Uis/socialite-ui"
+    },
+    "authors": [
+        {
+            "name": "Joel Butcher",
+            "role": "Developer",
+            "email": "joelbutcher@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^12.0",
+        "laravel/prompts": "^0.3",
+        "laravel/socialite": "^5.18"
+    },
+    "require-dev": {
+        "inertiajs/inertia-laravel": "^2.0",
+        "larastan/larastan": "^3.1",
+        "laravel/sanctum": "^4.0",
+        "livewire/livewire": "^3.5.0",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^10.0",
+        "orchestra/testbench-core": "^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SocialiteUi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SocialiteUi\\Tests\\": "tests/",
+            "App\\": "stubs/app"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "SocialiteUi\\SocialiteUiServiceProvider"
+            ]
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon.dist"
+            ]
+        }
+    },
+    "scripts": {
+        "test": [
+            "@test:types",
+            "@test:unit",
+            "@test:feature"
+        ],
+        "test:unit": "vendor/bin/pest --exclude-group=feature",
+        "test:feature": "vendor/bin/pest --group=feature --profile",
+        "test:coverage": "vendor/bin/pest --coverage --min=90",
+        "test:types": "vendor/bin/phpstan"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
