@@ -1,6 +1,6 @@
 {
     "name": "laravel-uis/socialite-ui",
-    "version": "1.0.0",
+    "version": "2.x-dev",
     "description": "A Laravel Socialite UI for the new Laravel Starter Kits",
     "keywords": [
         "socialite",
@@ -54,7 +54,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.x-dev"
+            "dev-main": "2.x-dev"
         },
         "laravel": {
             "providers": [
