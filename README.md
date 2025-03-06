@@ -49,25 +49,25 @@ To start using Laravel Socialite UI, create a new composer project using any of 
 **React**
 ```bash
 composer create-project laravel-uis/socialite-ui-react-starter-kit:dev-main example-app
-npm install && npm run buil
+npm install && npm run build
 ```
 
 **Vue**
 ```bash
 composer create-project laravel-uis/socialite-ui-vue-starter-kit:dev-main example-app
-npm install && npm run buil
+npm install && npm run build
 ````
 
 **Livewire (Volt)**
 ```bash
 composer create-project laravel-uis/socialite-ui-livewire-starter-kit:dev-main example-app
-npm install && npm run buil
+npm install && npm run build
 ```
 
 **Livewire (classes)**
 ```bash
 composer create-project laravel-uis/socialite-ui-livewire-starter-kit:dev-components example-app
-npm install && npm run buil
+npm install && npm run build
 ```
 
 ### Features
