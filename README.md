@@ -21,26 +21,7 @@ Laravel Socialite UI supports the new React, Vue, Livewire (Volt) and Livewire (
 > [!NOTE]
 > Laravel Socialite UI is a third-party package and is not officially supported by Laravel.
 
-## Documentation
-<img src="./docs/screenshots/login.png" alt="Laravel Socialite UI" width="800" />
-<img src="./docs/screenshots/linked-accounts.png" alt="Linked Accounts Page" width="800" />
-
-### Pre-requisites
-
-This guide assumes you have a basic understanding of Laravel and Composer.
-If you are new to Laravel, you can learn more about it by visiting the [official Laravel documentation](https://laravel.com/docs).
-
-We also assume you have at least [PHP 8.2](https://www.php.net/releases/8.2/en.php) installed on your machine,
-along with [Composer V2](https://getcomposer.org/),
-[Node](https://nodejs.org/en), and [NPM](https://www.npmjs.com/) (or [Bun](https://bun.sh/)).
-
-### Laravel Herd
-
-If you are starting from scratch, we recommend installing [Laravel Herd](https://herd.laravel.com) to help manage these pre-requisites.
-
-Laravel Herd offers a quick and easy way to get started with local PHP development with zero dependencies (no more Homebrew, Valet, Docker, etc).
-
-### Getting Started
+## Getting Started
 
 We've worked incredibly hard to make it as easy as possible to add support for Laravel Socialite into your starter kit application.
 
@@ -48,29 +29,31 @@ To start using Laravel Socialite UI, create a new composer project using any of 
 
 **React**
 ```bash
-composer create-project laravel-uis/socialite-ui-react-starter-kit:dev-main example-app
-npm install && npm run build
+laravel new my-app --using=laravel-uis/socialite-ui-react-starter-kit
 ```
 
 **Vue**
 ```bash
-composer create-project laravel-uis/socialite-ui-vue-starter-kit:dev-main example-app
-npm install && npm run build
+laravel new my-app --using=laravel-uis/socialite-ui-vue-starter-kit
 ````
 
 **Livewire (Volt)**
 ```bash
-composer create-project laravel-uis/socialite-ui-livewire-starter-kit:dev-main example-app
-npm install && npm run build
+laravel new my-app --using=laravel-uis/socialite-ui-livewire-starter-kit
 ```
 
 **Livewire (classes)**
 ```bash
-composer create-project laravel-uis/socialite-ui-livewire-starter-kit:dev-components example-app
-npm install && npm run build
+laravel new my-app --using=laravel-uis/socialite-ui-livewire-starter-kit:dev-components
 ```
 
-### Features
+### Screenshots
+
+<img src="./docs/screenshots/login.png" alt="Laravel Socialite UI" width="800" />
+
+<img src="./docs/screenshots/linked-accounts.png" alt="Linked Accounts Page" width="800" />
+
+## Features
 
 Laravel Socialite UI comes pre-configured with a bunch of useful features, ready for your next great idea:
 
@@ -101,7 +84,7 @@ logs into your application. Disable this setting by removing the `Features::refr
 
 If you have opted out of the Global Login feature of Socialite UI, you can still allow new users to be created from the login screen by uncommenting the `Features::createAccountOnFirstLogin(),` line in your config file.
 
-### Customization
+## Customization
 
 Laravel Socialite UI is highly customizable and can be tailored to suit your application's needs.
 
