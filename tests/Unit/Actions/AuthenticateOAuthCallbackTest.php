@@ -344,7 +344,7 @@ describe('Authenticate OAuth Callback Test', fn () => [
         $response = $action->authenticate($request, 'github', $socialiteUser);
 
         expect($response)->toBeInstanceOf(RedirectResponse::class)
-            ->and($response->getTargetUrl())->toBe('http://localhost/confirm?provider=github');
+            ->and($response->getTargetUrl())->toBe('http://localhost/oauth/confirm?provider=github');
     }),
     test('can handle a query exception', function () {
         /** @var SocialiteUser&MockInterface $socialiteUser */
