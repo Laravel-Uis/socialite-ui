@@ -258,69 +258,6 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
 
-  test-livewire-classes-starter-kit:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php: [ 8.2, 8.3, 8.4 ]
-        laravel: [ 12 ]
-        tester: [ phpunit, pest ]
-
-    name: Test Livewire (Class components) Starter Kit Integrations - P${{ matrix.php }} – L${{ matrix.laravel }} (${{ matrix.tester }})
-
-    steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pdo, pdo_sqlite
-          ini-values: error_reporting=E_ALL
-          tools: composer:v2
-          coverage: none
-
-      - name: Setup Project
-        run: |
-          composer create-project laravel/livewire-starter-kit:dev-components example-app
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          path: 'laravel-socialite-ui'
-
-      - name: Install Pest
-        working-directory: ./example-app
-        if: ${{ matrix.tester == 'pest' }}
-        run: |
-          composer remove phpunit/phpunit --dev --no-update
-          composer require pestphp/pest pestphp/pest-plugin-laravel --no-update --dev
-          composer update --prefer-dist --no-interaction
-          ./vendor/bin/pest --init
-
-      - name: Install Socialite UI
-        working-directory: ./example-app
-        run: |
-          composer require laravel-uis/socialite-ui:@dev --no-interaction --no-update
-          composer config repositories.laravel-socialite-ui '{"type": "path", "url": "./../laravel-socialite-ui"}' --file composer.json
-          composer update "laravel-uis/socialite-ui" -W --prefer-dist --no-interaction
-          composer update --prefer-dist --no-interaction
-          php artisan socialite-ui:install
-
-      - name: Install NPM dependencies
-        working-directory: ./example-app
-        run: npm i
-
-      - name: Compile assets
-        working-directory: ./example-app
-        run: npm run build
-
-      - name: Execute tests
-        working-directory: ./example-app
-        run: ./vendor/bin/${{ matrix.tester }}
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ":memory:"
-
   check:
     if: always()
     needs:
@@ -329,7 +266,6 @@ jobs:
       - test-react-starter-kit
       - test-vue-starter-kit
       - test-livewire-starter-kit
-      - test-livewire-classes-starter-kit
     runs-on: ubuntu-latest
 
     steps:
