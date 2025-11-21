@@ -39,17 +39,17 @@ class InstallCommand extends Command implements PromptsForMissingInput
      */
     public function handle(): ?int
     {
-        //        if ($this->alreadyInstalled()) {
-        //            warning('Socialite UI is already installed.');
-        //
-        //            return self::FAILURE;
-        //        }
-        //
-        //        if ($this->conflictsWithWorkOS()) {
-        //            warning('Socialite UI conflicts with WorkOS. Please uninstall WorkOS before installing Socialite UI.');
-        //
-        //            return self::FAILURE;
-        //        }
+        if ($this->alreadyInstalled()) {
+           warning('Socialite UI is already installed.');
+        
+           return self::FAILURE;
+        }
+        
+        if ($this->conflictsWithWorkOS()) {
+           warning('Socialite UI conflicts with WorkOS. Please uninstall WorkOS before installing Socialite UI.');
+        
+           return self::FAILURE;
+        }
 
         $this->installFor(
             $stack = $this->stack(),
