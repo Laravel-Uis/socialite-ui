@@ -40,15 +40,15 @@ class InstallCommand extends Command implements PromptsForMissingInput
     public function handle(): ?int
     {
         if ($this->alreadyInstalled()) {
-           warning('Socialite UI is already installed.');
-        
-           return self::FAILURE;
+            warning('Socialite UI is already installed.');
+
+            return self::FAILURE;
         }
-        
+
         if ($this->conflictsWithWorkOS()) {
-           warning('Socialite UI conflicts with WorkOS. Please uninstall WorkOS before installing Socialite UI.');
-        
-           return self::FAILURE;
+            warning('Socialite UI conflicts with WorkOS. Please uninstall WorkOS before installing Socialite UI.');
+
+            return self::FAILURE;
         }
 
         $this->installFor(
@@ -93,18 +93,22 @@ class InstallCommand extends Command implements PromptsForMissingInput
         ]);
         ServiceProvider::addProviderToBootstrapFile('App\Providers\SocialiteUiServiceProvider');
 
-        if (in_array($stack, ['react', 'vue'])) {
-            $this->installInertia();
+        $callback = match ($stack) {
+            'react' => function (): void {
+                $this->installInertia();
+                $this->installReact();
+            },
+            'vue' => function (): void {
+                    $this->installInertia();
+                    $this->installVue();
+            },
+            'livewire' => function (): void {
+                $this->installLivewire();
+            },
+            default => throw new \InvalidArgumentException("Unsupported stack: $stack"),
+        };
 
-            match ($stack) {
-                'react' => $this->installReact(),
-                'vue' => $this->installVue(),
-            };
-
-            return;
-        }
-
-        $this->installLivewire($stack);
+        $callback();
     }
 
     /**
@@ -243,7 +247,7 @@ class InstallCommand extends Command implements PromptsForMissingInput
     /**
      * Install for the Livewire starter kit.
      */
-    protected function installLivewire(string $livewire): void
+    protected function installLivewire(): void
     {
         $this->ensureDirectoriesExist([
             resource_path('views/components/layouts/app'),
@@ -255,51 +259,40 @@ class InstallCommand extends Command implements PromptsForMissingInput
 
         // Layouts
         $this->copyFiles([
-            __DIR__."/../../stubs/$livewire/resources/views/components/layouts/app/sidebar.blade.php" => resource_path('views/components/layouts/app/sidebar.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/components/settings/layout.blade.php" => resource_path('views/components/settings/layout.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/components/layouts/app/sidebar.blade.php' => resource_path('views/components/layouts/app/sidebar.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/components/settings/layout.blade.php' => resource_path('views/components/settings/layout.blade.php'),
         ]);
 
         // Icons
-        (new Filesystem)->copyDirectory(__DIR__."/../../stubs/$livewire/resources/views/components/socialite-provider-icons", resource_path('views/components/socialite-provider-icons'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/livewire/resources/views/components/socialite-provider-icons', resource_path('views/components/socialite-provider-icons'));
 
         // Components
         $this->copyFiles([
-            __DIR__."/../../stubs/$livewire/resources/views/components/socialite.blade.php" => resource_path('views/components/socialite.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/components/socialite-provider-icon.blade.php" => resource_path('views/components/socialite-provider-icon.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/components/socialite.blade.php' => resource_path('views/components/socialite.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/components/socialite-provider-icon.blade.php' => resource_path('views/components/socialite-provider-icon.blade.php'),
         ]);
 
         // Auth Views
         $this->copyFiles([
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/auth/confirm-link-account.blade.php" => resource_path('views/livewire/auth/confirm-link-account.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/auth/login.blade.php" => resource_path('views/livewire/auth/login.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/auth/register.blade.php" => resource_path('views/livewire/auth/register.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/auth/confirm-link-account.blade.php' => resource_path('views/livewire/auth/confirm-link-account.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/auth/login.blade.php' => resource_path('views/livewire/auth/login.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/auth/register.blade.php' => resource_path('views/livewire/auth/register.blade.php'),
         ]);
 
         // Settings Views
         $this->copyFiles([
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/settings/delete-user-form.blade.php" => resource_path('views/livewire/settings/delete-user-form.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/settings/linked-account.blade.php" => resource_path('views/livewire/settings/linked-account.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/settings/linked-accounts.blade.php" => resource_path('views/livewire/settings/linked-accounts.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/settings/password.blade.php" => resource_path('views/livewire/settings/password.blade.php'),
-            __DIR__."/../../stubs/$livewire/resources/views/livewire/settings/update-avatar.blade.php" => resource_path('views/livewire/settings/update-avatar.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/settings/delete-user-form.blade.php' => resource_path('views/livewire/settings/delete-user-form.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/settings/linked-account.blade.php' => resource_path('views/livewire/settings/linked-account.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/settings/linked-accounts.blade.php' => resource_path('views/livewire/settings/linked-accounts.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/settings/password.blade.php' => resource_path('views/livewire/settings/password.blade.php'),
+            __DIR__.'/../../stubs/livewire/resources/views/livewire/settings/update-avatar.blade.php' => resource_path('views/livewire/settings/update-avatar.blade.php'),
         ]);
 
         // Routes
         $this->copyFiles([
-            __DIR__."/../../stubs/$livewire/routes/auth.php" => base_path('routes/auth.php'),
-            __DIR__."/../../stubs/$livewire/routes/web.php" => base_path('routes/web.php'),
+            __DIR__.'/../../stubs/livewire/routes/auth.php' => base_path('routes/auth.php'),
+            __DIR__.'/../../stubs/livewire/routes/web.php' => base_path('routes/web.php'),
         ]);
-
-        if ($livewire === 'livewire-class-components') {
-            $this->copyFiles([
-                __DIR__."/../../stubs/$livewire/app/Livewire/Auth/ConfirmLinkAccount.php" => app_path('Livewire/Auth/ConfirmLinkAccount.php'),
-                __DIR__."/../../stubs/$livewire/app/Livewire/Settings/DeleteUserForm.php" => app_path('Livewire/Settings/DeleteUserForm.php'),
-                __DIR__."/../../stubs/$livewire/app/Livewire/Settings/LinkedAccount.php" => app_path('Livewire/Settings/LinkedAccount.php'),
-                __DIR__."/../../stubs/$livewire/app/Livewire/Settings/LinkedAccounts.php" => app_path('Livewire/Settings/LinkedAccounts.php'),
-                __DIR__."/../../stubs/$livewire/app/Livewire/Settings/Password.php" => app_path('Livewire/Settings/Password.php'),
-                __DIR__."/../../stubs/$livewire/app/Livewire/Settings/UpdateAvatar.php" => app_path('Livewire/Settings/UpdateAvatar.php'),
-            ]);
-        }
     }
 
     /**
@@ -333,35 +326,20 @@ class InstallCommand extends Command implements PromptsForMissingInput
      */
     protected function stack(): string
     {
-        $stack = $this->detectStack();
-
-        if (! $stack) {
-            $stack = (string) select(
-                label: 'Which starter kit are you using?',
-                options: [
-                    'react' => 'React Starter Kit',
-                    'vue' => 'Vue Starter Kit',
-                    'livewire' => 'Livewire Starter Kit',
-                ],
-            );
-
-            if ($stack !== 'livewire') {
-                return $stack;
-            }
-
-            return confirm(
-                label: 'Would you like to use Laravel Volt?',
-                default: true,
-            ) ? 'livewire' : 'livewire-class-components';
-        }
-
-        return $stack;
+        return $this->detectStack() ?? (string) select(
+            label: 'Which starter kit are you using?',
+            options: [
+                'react' => 'React Starter Kit',
+                'vue' => 'Vue Starter Kit',
+                'livewire' => 'Livewire Starter Kit',
+            ],
+        );
     }
 
     /**
      * Detect the stack that is installed.
      */
-    protected function detectStack(): string
+    protected function detectStack(): ?string
     {
         if (file_exists(resource_path('js/app.tsx'))) {
             return 'react';
@@ -371,7 +349,7 @@ class InstallCommand extends Command implements PromptsForMissingInput
             return 'vue';
         }
 
-        return class_exists('App\Livewire\Settings\Profile') ? 'livewire-class-components' : 'livewire';
+        return class_exists('App\Livewire\Settings\Profile') ? 'livewire' : null;
     }
 
     /**
