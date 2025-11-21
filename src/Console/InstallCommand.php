@@ -349,7 +349,7 @@ class InstallCommand extends Command implements PromptsForMissingInput
             return 'vue';
         }
 
-        return class_exists('App\Livewire\Settings\Profile') ? 'livewire' : null;
+        return class_exists('App\Providers\VoltServiceProvider') ? 'livewire' : null;
     }
 
     /**
