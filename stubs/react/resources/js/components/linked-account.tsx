@@ -46,7 +46,7 @@ export default function LinkedAccount({ socialAccount, socialiteUi }: LinkedAcco
     const unlinkAccount: FormEventHandler = (e) => {
         e.preventDefault();
 
-        destroy(route('linked-accounts.destroy', { socialAccount }), {
+        destroy(route('linked-accounts.destroy', { account: socialAccount.id }), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => passwordInput.current?.focus(),
