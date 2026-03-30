@@ -46,7 +46,7 @@ const unlinkAccountForm = useForm({
 const unlinkAccount = (e: Event) => {
    e.preventDefault();
 
-   unlinkAccountForm.delete(route('linked-accounts.destroy', { socialAccount }), {
+   unlinkAccountForm.delete(route('linked-accounts.destroy', { account: socialAccount.id }), {
       preserveScroll: true,
       onSuccess: () => closeModal(),
       onError: () => passwordInput.value?.focus(),
