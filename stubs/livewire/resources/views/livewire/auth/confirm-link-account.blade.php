@@ -1,16 +1,17 @@
 <?php
 
-use Socialite\Socialite;
+use SocialiteUi\Enums\Provider;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')]
 class extends Component {
     public string $provider = '';
+    public string $password = '';
 
     public function mount(): void
     {
-        $this->provider = Socialite::provider(request()->string('provider'))->name;
+        $this->provider = request()->enum('provider', Provider::class)?->name ?? request()->string('provider')->toString();
     }
 }; ?>
 
