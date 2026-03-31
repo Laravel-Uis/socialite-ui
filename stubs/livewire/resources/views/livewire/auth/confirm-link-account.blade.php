@@ -17,8 +17,8 @@ class extends Component {
 
 <div class="flex flex-col gap-6">
     <x-auth-header
-            :title="__('Link :provider', ['provider' => $provider])"
-            :description="__('Please confirm your password before linking your :provider account.', ['provider' => $provider])"
+            :title="__('Link :provider', ['provider' => Providers::name($provider)])"
+            :description="__('Please confirm your password before linking your :provider account.', ['provider' => Providers::name($provider)])"
     />
 
     <form method="post" action="{{ route('oauth.confirm', ['provider' => $provider]) }}" class="flex flex-col gap-6">
