@@ -92,7 +92,7 @@ jobs:
 
       - name: Setup Project
         run: |
-          composer create-project laravel/react-starter-kit example-app
+          composer create-project "laravel/react-starter-kit:^1.0" example-app
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -155,7 +155,7 @@ jobs:
 
       - name: Setup Project
         run: |
-          composer create-project laravel/vue-starter-kit example-app
+          composer create-project "laravel/vue-starter-kit:^1.0" example-app
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -218,7 +218,7 @@ jobs:
 
       - name: Setup Project
         run: |
-          composer create-project laravel/livewire-starter-kit example-app
+          composer create-project "laravel/livewire-starter-kit:^1.0" example-app
 
       - name: Checkout code
         uses: actions/checkout@v4
