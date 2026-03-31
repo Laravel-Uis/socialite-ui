@@ -1,7 +1,6 @@
 <?php
 
 use SocialiteUi\Enums\Provider;
-use SocialiteUi\Providers;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
@@ -12,7 +11,7 @@ class extends Component {
 
     public function mount(): void
     {
-        $this->provider = request()->enum('provider', Provider::class)?->value ?? request()->string('provider')->toString();
+        $this->provider = request()->enum('provider', Provider::class)?->name ?? request()->string('provider')->toString();
     }
 }; ?>
 
