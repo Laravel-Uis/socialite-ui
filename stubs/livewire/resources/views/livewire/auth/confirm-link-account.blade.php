@@ -1,23 +1,25 @@
 <?php
 
-use Socialite\Socialite;
+use SocialiteUi\Enums\Provider;
+use SocialiteUi\Providers;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')]
 class extends Component {
     public string $provider = '';
+    public string $password = '';
 
     public function mount(): void
     {
-        $this->provider = Socialite::provider(request()->string('provider'))->name;
+        $this->provider = request()->enum('provider', Provider::class)?->value ?? request()->string('provider')->toString();
     }
 }; ?>
 
 <div class="flex flex-col gap-6">
     <x-auth-header
-            :title="__('Link :provider', ['provider' => $provider])"
-            :description="__('Please confirm your password before linking your :provider account.', ['provider' => $provider])"
+            :title="__('Link :provider', ['provider' => Providers::name($provider)])"
+            :description="__('Please confirm your password before linking your :provider account.', ['provider' => Providers::name($provider)])"
     />
 
     <form method="post" action="{{ route('oauth.confirm', ['provider' => $provider]) }}" class="flex flex-col gap-6">
